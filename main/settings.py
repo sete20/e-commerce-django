@@ -68,7 +68,9 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 # append the function value anywhere
-                'category.context_processeors.menu_links'
+                'category.context_processeors.menu_links',
+                'cart.context_processeors.cart_quantity'
+
             ],
         },
     },
