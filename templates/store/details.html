@@ -11,6 +11,7 @@
 <div class="card">
 	<div class="row no-gutters">
 		<aside class="col-md-6">
+			<form action="">
 <article class="gallery-wrap"> 
 	<div class="img-big-wrap">
 	   <a href="#"><img  src="{{ product.images.url }}"></a>
@@ -18,73 +19,61 @@
 	
 </article> <!-- gallery-wrap .end// -->
 		</aside>
-		<main class="col-md-6 border-left">
+	<main class="col-md-6 border-left">
+		
+		<form action="{% url 'add.to.cart' product.id %}">
 <article class="content-body">
 
-<h2 class="title">{{ product.name }}</h2>
+	<h2 class="title">{{ product.name }}</h2>
 
-<div class="mb-3"> 
-	<var class="price h4">{{ product.price }}</var> 
-</div> 
+	<div class="mb-3"> 
+		<var class="price h4">{{ product.price }}</var> 
+	</div> 
 
-<p>{{ product.description }}</p>
+	<p>{{ product.description }}</p>
 
 
-<hr>
-	<div class="row">
-		<div class="item-option-select">
-			<h6>Choose Color</h6>
-			<div class="btn-group btn-group-sm btn-group-toggle" data-toggle="buttons">
-			  <label class="btn btn-light">
-			    <input type="radio" name="radio_color"> Silver
-			  </label>
-			  <label class="btn btn-light">
-			    <input type="radio" name="radio_color" > Gray
-			  </label>
-			  <label class="btn btn-light active">
-			    <input type="radio" name="radio_color checked"> Gold
-			  </label>
-			  <label class="btn btn-light">
-			    <input type="radio" name="radio_color"> Black
-			  </label>
-			</div> 
-		</div>
-	</div> <!-- row.// -->
-	<div class="row">
-		<div class="item-option-select">
-			<h6>Select Size</h6>
-			<div class="btn-group btn-group-sm btn-group-toggle" data-toggle="buttons">
-			  <label class="btn btn-light">
-			    <input type="radio" name="radio_color"> S
-			  </label>
-			  <label class="btn btn-light active">
-			    <input type="radio" name="radio_color" checked> M
-			  </label>
-			  <label class="btn btn-light">
-			    <input type="radio" name="radio_color"> L
-			  </label>
-			  <label class="btn btn-light">
-			    <input type="radio" name="radio_color"> XL
-			  </label>
-			</div> 
-		</div>
-	</div> <!-- row.// -->
 	<hr>
-	{% if product.stock <= 0 %}
-	<h5>out of stock</h5>
-	{% else %}
-	{% if in_cart %}
-	<a href="{% url 'add.to.cart' product.id %}" class="btn  btn-success"> <span class="text">Added to cart</span> <i class="fas fa-plus"></i>  </a>
-	<a href="{% url 'cart'  %}" class="btn  btn-primary"> <span class="text">go to cart</span> <i class="fas fa-eye"></i>  </a>
+		<div class="row">
+			<div class="item-option-select">
+				<h6>Choose Color</h6>
+				<select name="color" class="form-control"id="">
+					    <option value="" disabled selected>Choose color</option>
+                                        {% for variation in product.variation_set.colors %}
+                                        <option value="{{ variation.variation_value | lower }}">{{ variation.variation_value | capfirst }}</option>
+                                        {% endfor %}
+				</select>
+			</div>
+		</div> <!-- row.// -->
+		<div class="row">
+			<div class="item-option-select">
+				<h6>Select Size</h6>
+			<select name="size" class="form-control"id="">
+				    <option value="" disabled selected>Choose size</option>
+                                        {% for variation in product.variation_set.sizes %}
+                                        <option value="{{ variation.variation_value | lower }}">{{ variation.variation_value | capfirst }}</option>
+                                        {% endfor %}
+			</select>
+			</div>
+		</div> <!-- row.// -->
+		<hr>
+		{% if product.stock <= 0 %}
+		<h5>out of stock</h5>
+		{% else %}
+		{% if in_cart %}
+		<a href="{% url 'increment.item.cart' product.id %}"  class="btn  btn-success"> <span class="text">Added to cart</span> <i class="fas fa-plus"></i>  </a>
+		<a href="{% url 'cart'  %}" class="btn  btn-primary"> <span class="text">go to cart</span> <i class="fas fa-eye"></i>  </a>
 
-										
-								
-	{% else %}
-	<a href="{% url 'add.to.cart' product.id %}" class="btn  btn-primary"> <span class="text">Add to cart</span> <i class="fas fa-shopping-cart"></i>  </a>
-	{% endif %}
-	{% endif %}
+											
+									
+		{% else %}
+		<button  type="submit" class="btn  btn-primary"> <span class="text">Add to cart</span> <i class="fas fa-shopping-cart"></i>  </button>
+		{% endif %}
+		{% endif %}
 
-</article> <!-- product-info-aside .// -->
+	</article> <!-- product-info-aside .// -->
+
+		</form>
 		</main> <!-- col.// -->
 	</div> <!-- row.// -->
 </div> <!-- card.// -->
