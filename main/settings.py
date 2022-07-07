@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
+from django.contrib import messages
 import os
 from pathlib import Path
 
@@ -42,6 +43,7 @@ INSTALLED_APPS = [
     'accounts',
     'store',
     'cart',
+
 ]
 
 MIDDLEWARE = [
@@ -134,3 +136,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger',
+    50: 'critical',
+    messages.SUCCESS: 'success',
+    50: 'critical',
+}
